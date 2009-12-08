@@ -21,7 +21,7 @@ expmod(unsigned long base, unsigned long exponent, unsigned long modulus)
 VALUE
 integer_is_prime(VALUE self)
 {
-  unsigned long n = NUM2ULONG(self);
+  unsigned long long n = NUM2ULL(self);
   
   int *primes;
   int nprimes;
@@ -31,12 +31,10 @@ integer_is_prime(VALUE self)
 
   static int primes_1[] = {2, 3};
   static int primes_2[] = {31, 73};
-
-  // These values could be used if I could get unsigned long longs from ruby
-  //static int primes_3[] = {2, 7, 61};
-  //static int primes_4[] = {2, 3, 5, 7, 11};
-  //static int primes_5[] = {2, 3, 5, 7, 11, 13};
-  //static int primes_6[] = {2, 3, 5, 7, 11, 13, 17};
+  static int primes_3[] = {2, 7, 61};
+  static int primes_4[] = {2, 3, 5, 7, 11};
+  static int primes_5[] = {2, 3, 5, 7, 11, 13};
+  static int primes_6[] = {2, 3, 5, 7, 11, 13, 17};
   
   if (n < 2) {
     return Qfalse;
@@ -48,20 +46,20 @@ integer_is_prime(VALUE self)
   } else if (n < 9080191) {
     primes = primes_2;
     nprimes = 2;
-/*  } else if (n < 4759123141) { 
+  } else if (n < 4759123141ULL) { 
     primes = primes_3;
     nprimes = 3;
-  } else if (n < 2152302989747) {
+  } else if (n < 2152302989747ULL) {
     primes = primes_4;
     nprimes = 5;
-  } else if (n < 3474749660383) {
+  } else if (n < 3474749660383ULL) {
     primes = primes_5;
     nprimes = 6;
-  } else if (n < 341550071728321) {
+  } else if (n < 341550071728321ULL) {
     primes = primes_6;
-    nprimes = 7; */
+    nprimes = 7;
   } else {
-    // Presumably the typecheck caught this already.
+    // Quick, do something more sensible!
     return Qfalse; 
   }
 
