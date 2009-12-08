@@ -27,7 +27,7 @@ mrprime(VALUE obj)
 
 /* Miller-Rabin algorithm to determine primality of a number.
  * Uses values for a that guarantee correct results up to 314T.
- * Above that, either 
+ * Above that, uses ryan@ryanneufeld.ca's Mr.Prime.
  */ 
 VALUE
 integer_is_prime(VALUE self)
