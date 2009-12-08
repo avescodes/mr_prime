@@ -4,10 +4,12 @@
 
 #include "ruby.h"
 
-unsigned long
-expmod(unsigned long base, unsigned long exponent, unsigned long modulus)
+typedef unsigned long long ullong;
+
+ullong
+expmod(ullong base, ullong exponent, ullong modulus)
 {
-  unsigned long result = 1;
+  ullong result = 1;
   while(exponent > 0) {
     if ((exponent & 1) == 1) {
       result = (result * base) % modulus;
@@ -21,12 +23,12 @@ expmod(unsigned long base, unsigned long exponent, unsigned long modulus)
 VALUE
 integer_is_prime(VALUE self)
 {
-  unsigned long long n = NUM2ULL(self);
+  ullong n = NUM2ULL(self);
   
   int *primes;
   int nprimes;
   int k, i, j;
-  unsigned long m, b;
+  ullong m, b;
   bool prime;
 
   static int primes_1[] = {2, 3};
