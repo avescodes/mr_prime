@@ -62,7 +62,7 @@ integer_is_prime(VALUE self)
     nprimes = 7;
   } else {
     // Quick, do something more sensible!
-    return Qfalse; 
+    rb_raise(rb_eArgError, "number too large.");
   }
 
   k = 0;
