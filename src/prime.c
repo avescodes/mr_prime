@@ -21,6 +21,7 @@ expmod(ullong base, ullong exponent, ullong modulus)
 VALUE
 mrprime(VALUE obj)
 {
+  rb_require("mr_prime");
   VALUE mrprime = rb_define_class("MR_Prime", rb_cObject);
   return rb_funcall(mrprime, rb_intern("[]"), 1, obj);
 }
@@ -110,6 +111,5 @@ void
 Init_better_prime()
 {
   VALUE cNumeric = rb_define_class("Numeric", rb_cObject);
-  rb_require("mr_prime");
   rb_define_method(cNumeric, "prime?", integer_is_prime, 0);
 }
