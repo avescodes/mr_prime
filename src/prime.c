@@ -31,12 +31,14 @@ integer_is_prime(VALUE self)
 
   static int primes_1[] = {2, 3};
   static int primes_2[] = {31, 73};
-  static int primes_3[] = {2, 7, 61};
-  static int primes_4[] = {2, 3, 5, 7, 11};
-  static int primes_5[] = {2, 3, 5, 7, 11, 13};
-  static int primes_6[] = {2, 3, 5, 7, 11, 13, 17};
+
+  // These values could be used if I could get unsigned long longs from ruby
+  //static int primes_3[] = {2, 7, 61};
+  //static int primes_4[] = {2, 3, 5, 7, 11};
+  //static int primes_5[] = {2, 3, 5, 7, 11, 13};
+  //static int primes_6[] = {2, 3, 5, 7, 11, 13, 17};
   
-  if      (n < 2) {
+  if (n < 2) {
     return Qfalse;
   } else if (n < 4) {
     return Qtrue;
@@ -59,7 +61,8 @@ integer_is_prime(VALUE self)
     primes = primes_6;
     nprimes = 7; */
   } else {
-    return Qfalse; // DO SOMETHING BETTER HERE
+    // Presumably the typecheck caught this already.
+    return Qfalse; 
   }
 
   k = 0;
