@@ -1,10 +1,10 @@
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name = "better_prime"
+    s.name = "mr_prime"
     s.summary = "An Uber-fast primality testing library."
     s.email = "burke@burkelibbey.org"
-    s.homepage = "http://github.com/burke/better_prime"
+    s.homepage = "http://github.com/rkneufeld/mr_prime"
     s.description = "An Uber-fast primality testing library."
     s.authors = ["Burke Libbey", "Ryan Neufeld"]
     s.files =  FileList["[A-Z]*", "{src,ext,lib}/**/*"]
