@@ -3,7 +3,7 @@ SHELL = /bin/sh
 
 #### Start of system configuration section. ####
 
-srcdir = src
+srcdir = .
 topdir = /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0
 hdrdir = $(topdir)
 VPATH = $(srcdir):$(topdir):$(hdrdir)
