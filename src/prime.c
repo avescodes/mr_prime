@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
 
 #include "ruby.h"
@@ -21,8 +19,23 @@ expmod(ullong base, ullong exponent, ullong modulus)
 }
 
 VALUE
+mrprime(VALUE obj)
+{
+  VALUE mrprime = rb_define_class("MR_Prime", rb_cObject);
+  return rb_funcall(mrprime, rb_intern("[]"), 1, obj);
+}
+
+/* Miller-Rabin algorithm to determine primality of a number.
+ * Uses values for a that guarantee correct results up to 314T.
+ * Above that, either 
+ */ 
+VALUE
 integer_is_prime(VALUE self)
 {
+  if (!FIXNUM_P(self)) {
+    return mrprime(self);
+  }
+
   ullong n = NUM2ULL(self);
   
   int *primes;
@@ -30,7 +43,7 @@ integer_is_prime(VALUE self)
   int k, i, j;
   ullong m, b;
   bool prime;
-
+  
   static int primes_1[] = {2, 3};
   static int primes_2[] = {31, 73};
   static int primes_3[] = {2, 7, 61};
@@ -61,8 +74,8 @@ integer_is_prime(VALUE self)
     primes = primes_6;
     nprimes = 7;
   } else {
-    // Quick, do something more sensible!
-    rb_raise(rb_eArgError, "number too large.");
+    // Quick, do something sensible!
+    return mrprime(self);
   }
 
   k = 0;
@@ -77,7 +90,6 @@ integer_is_prime(VALUE self)
 
     if (b != 1) {
       prime = false;
-
       for (j = 0; j < k; j++) {
         if (b == n - 1) {
           prime = true;
@@ -85,7 +97,6 @@ integer_is_prime(VALUE self)
         }
         b = expmod(b, 2, n);
       }
-      
       if (!prime) {
         return Qfalse;
       }
@@ -99,6 +110,6 @@ void
 Init_better_prime()
 {
   VALUE cNumeric = rb_define_class("Numeric", rb_cObject);
-
+  rb_require("mr_prime");
   rb_define_method(cNumeric, "prime?", integer_is_prime, 0);
 }
